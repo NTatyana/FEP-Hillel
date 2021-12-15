@@ -10,59 +10,53 @@ function getNumber() {
 }
 
 
-
 function mathematicalОperator() {
-    const operator = prompt('Enter mathematical operator');
-    return operator;
+    return (prompt('Enter mathematical operator'));
 }
 
 
-
-
-function sum(a, b) {
-    console.log (`${a} + ${b} = ${a + b}`);
+function sum(number1, number2) {
+    return (`${number1} + ${number2} = ${number1 + number2}`);
 }
 
-function sub(a, b) {
-    console.log (`${a} - ${b} = ${a - b}`);
+function sub(number1, number2) {
+    return (`${number1} - ${number2} = ${number1 - number2}`);
 }
 
-function mult(a, b) {
-    console.log (`${a} * ${b} = ${a * b}`);
+function mult(number1, number2) {
+    return (`${number1} * ${number2} = ${number1 * number2}`);
 }
 
-function div(a, b) {
-    console.log (`${a} / ${b} = ${a / b}`);
+function div(number1, number2) {
+    return (`${number1} / ${number2} = ${number1 / number2}`);
 }
 
 
+function result (number1, number2, action) {
 
-function result (a, b, c) {
+    if (action == '+') {
 
-    if (c == '+') {
+        const d = sum(number1, number2);
+        console.log (d);
 
-        const d = sum(a, b);
+    } else if (action == '-') {
 
-    } else if (c == '-') {
+        const d = sub(number1, number2);
+        console.log (d);
 
-        const d = sub(a, b);
+    } else if (action == '*') {
 
-    } else if (c == '*') {
+        const d = mult(number1, number2);
+        console.log (d);
 
-        const d = mult(a, b);
+    } else if (action == '/') {
 
-    } else if (c == '/') {
-
-        const d = div(a, b);
+        const d = div(number1, number2);
+        console.log (d);
 
     }
-
 }
 
-
-
-
-alert ("Let's start counting?");
 
 const value1 = getNumber();
 const valueOperator = mathematicalОperator()
