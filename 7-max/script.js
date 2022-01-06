@@ -1,8 +1,8 @@
 function max(arr) {
-  let maxValue = 0;
+  let maxValue = [0];
 
 
-  for (let i = 0; i <= arr.langth; i++) {
+  for (let i = 1; i <= arr.langth; i++) {
     if (maxValue <= arr[i]) {
       maxValue = arr[i];
     }
