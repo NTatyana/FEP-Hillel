@@ -1,82 +1,89 @@
-const CONTACT_ITEM_SELECTOR = '.contactItem';
-const DELETE_BTN_CLASS = 'deleteBtn';
+import GalleryApi from './GalleryApi.js';
 
-const contactForm = document.querySelector('#contactForm');
-const inputs = document.querySelectorAll('.formInput');
-const contactList = document.querySelector('#contactList');
-const contactItemTemplate = document.querySelector('#contactItemTemplate').innerHTML;
+const SELECTOR = Object.freeze({
+  NAV_LIST: '#navList',
+  PHOTO_LIST: '#photoList',
+  NAV_TEMPLATE: '#navItemTemplate',
+  PHOTO_TEMPLATE: '#photoItemTemplate',
+  NAV_ITEM: '.navigation-item',
+});
 
-contactForm.addEventListener('submit', onContactBtnSubmit);
-contactList.addEventListener('click', onContactListClick);
+const navListEl = document.querySelector(SELECTOR.NAV_LIST);
+const photoListEl = document.querySelector(SELECTOR.PHOTO_LIST);
+const navItemTemplate = document.querySelector(SELECTOR.NAV_TEMPLATE).innerHTML;
+const photoItemTemplate = document.querySelector(SELECTOR.PHOTO_TEMPLATE).innerHTML;
 
-function onContactBtnSubmit(e) {
+navListEl.addEventListener('click', onNavigationListClick);
+
+init();
+
+function init() {
+  GalleryApi
+    .getAlbums()
+    .then((albums) => {
+      const id = getFirstAlbumId(albums);
+
+      renderNavigation(albums);
+
+      if (id) {
+        renderPhotoListByAlbumId(id);
+      } else {
+        renderEmptyPhotoList();
+      }
+    })
+    .catch(handleError);
+}
+
+function onNavigationListClick(e) {
   e.preventDefault();
 
-  const contact = getContact();
+  const navItemEl = getNavItemElement(e.target);
 
-  if(!isContactValid(contact)) {
-    alert('Ошибка, проверьте правильность');
-    return;
-  }
-
-  addNewContact(contact);
-  clearContact();
-}
-
-function onContactListClick(e) {
-  if(e.target.classList.contains(DELETE_BTN_CLASS)) {
-    const contactItem = getContactItem(e.target);
-
-    removeContact(contactItem);
+  if (navItemEl) {
+    renderPhotoListByAlbumId(navItemEl.dataset.id);
   }
 }
 
+function renderNavigation(albums) {
+  const navItemsHTML = albums.map(getNavHTML).join('');
 
-function getContact() {
-  const contact = {};
-
-  inputs.forEach(input => {
-    contact[input.name] = input.value;
-  })
-
-  return contact;
+  navListEl.innerHTML = navItemsHTML;
 }
 
-function isContactValid(value) {
-  return !isEmpty(value.name)
-    && !isEmpty(value.surname)
-    && isPhone(value.phone);
+function getNavHTML(album) {
+  return navItemTemplate
+    .replace('{{id}}', album.id)
+    .replace('{{title}}', album.title)
 }
 
-function isPhone(numb) {
-  return !isEmpty(numb) && !isNaN(numb);
+function getNavItemElement(el) {
+  return el.closest(SELECTOR.NAV_ITEM);
 }
 
-function isEmpty(value) {
-  return typeof value === 'string' && value.trim() === '';
+function renderPhotoListByAlbumId(id) {
+  GalleryApi
+    .getPhotos(id)
+    .then((photos) => {
+      const photoItemsHTML = photos.map(getPhotoHTML).join('');
+
+      photoListEl.innerHTML = photoItemsHTML;
+    })
+    .catch(handleError);
 }
 
-function addNewContact(contact) {
-  let contactItemHTML = contactItemTemplate;
-
-  for (let prop in contact) {
-    contactItemHTML = contactItemHTML.replace(`{{${prop}}}`, contact[prop]);
-  }
-
-  contactList.insertAdjacentHTML('beforeend', contactItemHTML);
+function renderEmptyPhotoList() {
+  photoListEl.innerHTML = '<h2>No photos in album</h2>';
 }
 
-function clearContact() {
-  contactForm.reset();
+function getPhotoHTML(photo) {
+  return photoItemTemplate
+    .replace('{{src}}', photo.thumbnailUrl)
 }
 
-function getContactItem(el) {
-  return el.closest(CONTACT_ITEM_SELECTOR);
+function getFirstAlbumId(albums) {
+  return albums?.[0]?.id;
 }
 
-function removeContact(contactItem) {
-  contactItem.remove();
+function handleError(e) {
+  alert(e.message);
 }
-
-
-
