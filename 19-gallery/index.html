@@ -1,0 +1,39 @@
+<!DOCTYPE >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js" async ></script>
+
+
+
+</head>
+
+
+<body>
+<h1>Gallery</h1>
+
+  <div class="row">
+    <div class="column left">
+      <div id="navList"></div>
+    </div>
+    <div class="column right">
+      <div id="photoList"></div>
+    </div>
+  </div>
+
+  <script id="navItemTemplate" type="text/template">
+    <div data-id="{{id}}" class="navigation-item">
+      <a href="#">{{title}}</a>
+    </div>
+  </script>
+
+  <script id="photoItemTemplate" type="text/template">
+    <div class="photo-item"><img src="{{src}}"></div>
+  </script>
+
+</body>
+</html>

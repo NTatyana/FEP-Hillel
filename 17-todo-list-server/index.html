@@ -1,0 +1,41 @@
+<!DOCTYPE >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Title</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js" defer></script>
+
+
+
+</head>
+
+
+<body>
+  <div>
+    
+    <ul class="todo-list">
+      <!-- items -->
+    </ul>
+
+    <form id="todoForm">
+      <input class="message-input" type="text" placeholder="Введите сообщение" />
+      <button class="add-button">Отправить</button>
+    </form>
+
+  </div>
+
+  <script id="newTaskTemplate" type="text/template">
+    <li
+        data-id="{{id}}"
+        data-status="{{status}}"
+        class="todo-item {{done}}"
+    >
+      {{title}}
+      <span class="remove-button">[Delete]</span>
+    </li>
+  </script>
+</body>
+</html>
