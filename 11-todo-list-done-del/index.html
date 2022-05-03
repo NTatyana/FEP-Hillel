@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      .done {
+        background-color: lightgreen;
+      }
+    </style>
+    <script async src="index.js"></script>
+</head>
+<body>
+  <div>
+
+    <ul class="todo-list" style="border: 5px solid darkred">
+      <!-- items -->
+    </ul>
+
+    <form id="todoForm">
+      <input class="message-input" type="text" placeholder="Введите сообщение" />
+      <button class="add-button">Отправить</button>
+    </form>
+
+  </div>
+
+  <script id="newTaskTemplate" type="text/template">
+    <li class="todo-item">
+      {{message}}
+      <span class="remove-button">[Delete]</span>
+    </li>
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title></title>
+
+    <script src="./script.js" async defer></script>
+
+
+
+</head>
+<body>
+
+    <body>
+
+        <form id="contactForm">
+          <table>
+            <tr>
+              <th>Имя</th>
+              <th>Фамилия</th>
+              <th>Телефон</th>
+              <th>Действия</th>
+            </tr>
+        
+            <tbody id="contactList">
+        
+            </tbody>
+        
+            <tr>
+              <td><input type="text" name="name"    id="nameInput"    class="formInput" /></td>
+              <td><input type="text" name="surname" id="surnameInput" class="formInput" /></td>
+              <td><input type="text" name="phone"   id="phoneInput"   class="formInput" /></td>
+              <td><button id="addContactBtn">Создать контакт</button></td>
+            </tr>
+          </table>
+        </form>
+        
+        <script id="contactItemTemplate" type="text/template">
+          <tr class="contactItem">
+            <td>{{name}}</td>
+            <td>{{surname}}</td>
+            <td>{{phone}}</td>
+            <td><div><button type="button" class="deleteBtn">Удалить</button></div></td>
+          </tr>
+        </script>
+        
+</body>
+</html>
